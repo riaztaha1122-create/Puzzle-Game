@@ -78,15 +78,22 @@ export class SequenceGame {
     this.userSequence.push(index);
     const lastIdx = this.userSequence.length - 1;
 
+    // Provide visual feedback for the user's click
+    this.flashPad(index);
+
     if (this.userSequence[lastIdx] !== this.sequence[lastIdx]) {
       this.gameOver = true;
       this.message = `NEURAL SYNC LOST. LEVEL: ${this.level}`;
-      this.render();
+      // Delay render so the user sees their incorrect click flash
+      setTimeout(() => {
+        if (this.playingSequence) return; // Prevent render if already destroyed 
+        this.render();
+      }, this.speed);
       return;
     }
 
     if (this.userSequence.length === this.sequence.length) {
-      setTimeout(() => this.nextLevel(), 500);
+      setTimeout(() => this.nextLevel(), this.speed + 300);
     }
   }
 

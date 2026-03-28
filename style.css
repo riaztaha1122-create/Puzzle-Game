@@ -340,6 +340,13 @@ h1 {
   transform: scale(1.02);
 }
 
+.pad.active {
+  background: var(--pad-color) !important;
+  box-shadow: 0 0 30px var(--pad-color);
+  border-color: var(--pad-color);
+  transform: scale(0.95);
+}
+
 /* Modal Styles */
 .modal-overlay {
   position: fixed;

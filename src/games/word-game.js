@@ -1,7 +1,40 @@
 const WORDS = {
-  4: ["ATOM", "BLUE", "CORE", "DATA", "ECHO", "FLUX", "GRID", "HALO", "IONIC", "JUMP"],
-  5: ["AMBER", "BLAST", "CLOUD", "DIGIT", "ETHER", "FROST", "GHOST", "HYPER", "IMAGE", "LASER"],
-  6: ["NEBULA", "COSMOS", "GALAXY", "PIXEL", "CYBER", "MATRIX", "VECTOR", "BINARY", "SYSTEM", "ORBIT"]
+  4: [
+    { word: "ATOM", hint: "Basic unit of matter" },
+    { word: "BLUE", hint: "Color of the clear sky" },
+    { word: "CORE", hint: "The central processing part" },
+    { word: "DATA", hint: "Information processed by computers" },
+    { word: "ECHO", hint: "A reflection of sound" },
+    { word: "FLUX", hint: "State of continuous change" },
+    { word: "GRID", hint: "A network of intersecting lines" },
+    { word: "HALO", hint: "A circle of light" },
+    { word: "BYTE", hint: "A unit of digital information" },
+    { word: "JUMP", hint: "Move quickly off the ground" }
+  ],
+  5: [
+    { word: "AMBER", hint: "Fossilized tree resin" },
+    { word: "BLAST", hint: "A destructive wave of energy" },
+    { word: "CLOUD", hint: "A visible mass of condensed water" },
+    { word: "DIGIT", hint: "A single numerical symbol" },
+    { word: "ETHER", hint: "The upper regions of space" },
+    { word: "FROST", hint: "A deposit of small white ice crystals" },
+    { word: "GHOST", hint: "An apparition or trace" },
+    { word: "HYPER", hint: "Overly energetic or active" },
+    { word: "IMAGE", hint: "A representation of external form" },
+    { word: "LASER", hint: "An intense beam of light" }
+  ],
+  6: [
+    { word: "NEBULA", hint: "A cloud of gas and dust in space" },
+    { word: "COSMOS", hint: "The universe as a well-ordered whole" },
+    { word: "GALAXY", hint: "A system of millions of stars" },
+    { word: "SERVER", hint: "A computer managing network resources" },
+    { word: "ROUTER", hint: "A device forwarding data packets" },
+    { word: "MATRIX", hint: "An environment in which something develops" },
+    { word: "VECTOR", hint: "Quantity with direction and magnitude" },
+    { word: "BINARY", hint: "Base 2 numerical system" },
+    { word: "SYSTEM", hint: "A set of connected parts forming a whole" },
+    { word: "PORTAL", hint: "A doorway or entrance" }
+  ]
 };
 
 export class WordGame {
@@ -12,7 +45,9 @@ export class WordGame {
     this.currentGuess = "";
     this.guesses = [];
     const pool = WORDS[this.wordLength];
-    this.targetWord = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
+    const selected = pool[Math.floor(Math.random() * pool.length)];
+    this.targetWord = selected.word.toUpperCase();
+    this.targetHint = selected.hint;
     this.gameOver = false;
     this.message = "";
   }
@@ -100,7 +135,11 @@ export class WordGame {
     this.container.innerHTML = `
       <div class="word-game fade-in">
         <h2 style="margin-bottom: 0.5rem; color: var(--accent-color);">CYBER WORD BREACH</h2>
-        <p style="margin-bottom: 2rem; color: #666; font-size: 0.9rem;">Level: ${this.wordLength === 4 ? 'Novice' : (this.wordLength === 5 ? 'Pro' : 'Expert')}</p>
+        <p style="margin-bottom: 0.5rem; color: #666; font-size: 0.9rem;">Level: ${this.wordLength === 4 ? 'Novice' : (this.wordLength === 5 ? 'Pro' : 'Expert')}</p>
+        <div style="margin-bottom: 2rem; padding: 0.75rem 1rem; background: rgba(0, 255, 76, 0.05); border-left: 3px solid var(--accent-color); border-radius: 0 4px 4px 0; max-width: 400px; margin-left: auto; margin-right: auto; text-align: left;">
+          <p style="color: var(--accent-color); font-size: 0.8rem; font-weight: bold; text-transform: uppercase; margin-bottom: 0.25rem;">System Hint</p>
+          <p style="color: #ddd; font-style: italic; font-size: 0.95rem;">"${this.targetHint}"</p>
+        </div>
         
         <div class="grid" style="gap: 10px;">
           ${this.renderGrid()}
